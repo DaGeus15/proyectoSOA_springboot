@@ -1,0 +1,39 @@
+CREATE TABLE `roles` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Tabla de usuarios
+CREATE TABLE `usuarios` (
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(100) NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Tabla intermedia: usuario_roles
+CREATE TABLE `usuario_roles` (
+  `username` VARCHAR(50) NOT NULL,
+  `role_id` INT(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`username`, `role_id`),
+  KEY `fk_rol` (`role_id`),
+  CONSTRAINT `fk_usuario` FOREIGN KEY (`username`) REFERENCES `usuarios` (`username`) ON DELETE CASCADE,
+  CONSTRAINT `fk_rol` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Insertar roles
+INSERT INTO `roles` (`id`, `nombre`) VALUES
+(1, 'ADMINISTRADOR'),
+(2, 'SECRETARIA');
+
+-- Insertar usuarios (las contraseñas están en formato BCrypt)
+INSERT INTO `usuarios` (`username`, `password`, `enabled`) VALUES
+('admin', '$2a$12$DfjXBv4Y6MMj7fsfm2bQBeLhQ/pLVF41MoYJBNX0kM627DZ0pjWou', 1),       -- admin123
+('secretaria', '$2a$12$G3AgStB1hkrZoyAznuxg8uWxgyRAgGRD75z6Og9Cjf6XLJqLVK0wK', 1);  -- secretaria123
+
+-- Relacionar usuarios con sus roles
+INSERT INTO `usuario_roles` (`username`, `role_id`) VALUES
+('admin', 1),
+('secretaria', 2);
