@@ -1,7 +1,7 @@
 services:
   - type: web
     name: final-springboot-app
-    env: java
+    runtime: docker
     buildCommand: ./mvnw clean install
     startCommand: java -jar target/*.jar
     plan: free
