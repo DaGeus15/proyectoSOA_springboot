@@ -1,7 +1,7 @@
 services:
   - type: web
     name: final-springboot-app
-    runtime: docker
+    env: docker # ← sí, aunque parezca contradictorio, así Render lo interpreta correctamente como un contenedor Java Maven
     buildCommand: ./mvnw clean install
     startCommand: java -jar target/*.jar
     plan: free
