@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: final-springboot-app
+    env: java
+    buildCommand: ./mvnw clean install
+    startCommand: java -jar target/*.jar
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        value: jdbc:postgresql://dpg-d1alq8je5dus73eo52cg-a:5432/servicios_s7o5
+      - key: DATABASE_USERNAME
+        value: usuariofinal
+      - key: DATABASE_PASSWORD
+        value: VM1Uard0OTLDVfwfqk1OogHPgwOT0Wa1
+
+databases:
+  - name: soa
+    databaseName: servicios_s7o5
+    user: usuariofinal
