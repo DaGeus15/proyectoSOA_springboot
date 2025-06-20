@@ -10,4 +10,12 @@ public class LoginController {
     public String login() {
         return "login"; // Debes crear login.html en templates
     }
+
+
+    @GetMapping("/logout")
+    public String manejarLogoutIncorrecto() {
+        return "redirect:/login?logout";
+    }
+
+
 }
