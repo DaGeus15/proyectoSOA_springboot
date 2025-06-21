@@ -1,10 +1,14 @@
+# Archivos de ayuda/documentación
 HELP.md
-target/
+
+# Ignorar todo el contenido del directorio target excepto el .jar necesario para Render
+target/*
 !target/final-0.0.1-SNAPSHOT.jar
 
+# Ignorar el wrapper JAR de Maven
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+
+# Ignorar archivos temporales o innecesarios generados por IDEs y builds
 
 ### STS ###
 .apt_generated
@@ -16,7 +20,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -27,9 +31,15 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+# Ignorar carpetas de build personalizadas
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
