@@ -2,9 +2,9 @@ spring:
   application:
     name: final
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:postgresql://dpg-d1alq8je5dus73eo52cg-a:5432/servicios_s7o5
+    username: usuariofinal
+    password: VM1Uard0OTLDVfwfqk1OogHPgwOT0Wa1
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
