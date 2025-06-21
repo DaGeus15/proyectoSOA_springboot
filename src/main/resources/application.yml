@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://dpg-d1alq8je5dus73eo52cg-a.virginia-postgres.render.com:5432/servicios_s7o5
     username: usuariofinal
-    password: VM1UardO0TLDVfwfqklOogHPgwOT0Wa1
+    password: VM1UardO0TLDVfwfqk1OogHPgwOT0Wa1
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
