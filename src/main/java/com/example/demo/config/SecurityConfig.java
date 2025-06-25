@@ -25,23 +25,25 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/login",
-                                "/styles.css",               // ✅ ACCESO EXPLÍCITO AL CSS
-                                "/css/**", "/js/**", "/img/**"
+                                "/styles.css",
+                                "/css/", "/js/", "/img/"
                         ).permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
-                        .requestMatchers("/secretaria/**").hasAnyRole("SECRETARIA", "ADMINISTRADOR")
+                        .requestMatchers("/admin/").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/secretaria/").hasAnyRole("SECRETARIA", "ADMINISTRADOR")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                 )
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/login") // desactiva CSRF solo en el login
+                        .ignoringRequestMatchers("/login")
                 );
 
         return http.build();
@@ -58,5 +60,5 @@ public class SecurityConfig {
         authProvider.setUserDetailsService(usuarioDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(authProvider);
-    }
+   }
 }

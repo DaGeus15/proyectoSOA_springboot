@@ -935,7 +935,7 @@ body {
     text-decoration: none;
 }
 
-/* Table Styles mejorados - ARREGLADO PARA VISIBILIDAD */
+/* Table Styles mejorados */
 .table-container {
     background: var(--bg-primary);
     backdrop-filter: blur(20px);
@@ -950,7 +950,8 @@ body {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-.students-table {
+.students-table,
+.secretaries-table {
     margin: 0;
     border: none;
     background: transparent;
@@ -1000,7 +1001,6 @@ body {
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(6, 182, 212, 0.08)) !important;
 }
 
-/* ARREGLO CRÍTICO: Texto visible en las celdas */
 .table-row td {
     padding: var(--spacing-md) var(--spacing-lg);
     border-color: var(--gray-300);
@@ -1197,7 +1197,6 @@ body {
     font-size: 0.95rem;
     height: 44px;
     color: var(--text-primary);
-
 }
 
 .form-input:focus {
@@ -1551,7 +1550,371 @@ body {
     text-decoration: none;
 }
 
-/* Responsive Design */
+/* Estilos para la nueva sección de secretarias */
+.secretaries-section {
+    background: var(--bg-primary);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-glass);
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .secretaries-section {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.secretaries-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, rgba(6, 182, 212, 0.03) 50%, transparent 100%);
+    animation: shimmer 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.secretaries-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+    z-index: 1;
+}
+
+.secretaries-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+.secretaries-icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.secretaries-title {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.025em;
+    background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.secretaries-count {
+    position: relative;
+}
+
+.count-badge {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: countBadgeFloat 2s ease-in-out infinite;
+}
+
+@keyframes countBadgeFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+.secretaries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.secretary-card {
+    background: var(--bg-secondary);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .secretary-card {
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.secretary-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.secretary-card:hover::before {
+    left: 100%;
+}
+
+.secretary-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-color);
+}
+
+.secretary-avatar-large {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+    position: relative;
+    animation: avatarPulse 3s ease-in-out infinite;
+}
+
+.secretary-avatar-large::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.secretary-card:hover .secretary-avatar-large::after {
+    opacity: 0.3;
+}
+
+@keyframes avatarPulse {
+    0%,
+    100% {
+        box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+    }
+    50% {
+        box-shadow: 0 8px 35px rgba(6, 182, 212, 0.6);
+    }
+}
+
+.secretary-icon-large {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.secretary-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.secretary-username {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    word-break: break-word;
+    line-height: 1.3;
+}
+
+.secretary-role {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.secretary-status-indicator {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, var(--success-color), #34d399);
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    animation: statusBlink 2s ease-in-out infinite;
+    position: relative;
+}
+
+.secretary-status-indicator::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--success-color), #34d399);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: statusRipple 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes statusRipple {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Estilos para secretarias ocultas/visibles */
+.secretary-hidden {
+    display: none;
+}
+
+.secretary-visible {
+    display: flex;
+}
+
+/* Animaciones para mostrar/ocultar secretarias */
+@keyframes secretarySlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes secretarySlideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        max-height: 200px;
+        margin-bottom: var(--spacing-lg);
+        padding-top: var(--spacing-lg);
+        padding-bottom: var(--spacing-lg);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+        max-height: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* Estilos para el botón de expandir */
+.secretaries-actions {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-expand {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.btn-expand::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left var(--transition-normal);
+}
+
+.btn-expand:hover::before {
+    left: 100%;
+}
+
+.btn-expand:hover {
+    background: linear-gradient(135deg, #0891b2, var(--accent-color));
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.expand-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform var(--transition-normal);
+}
+
+.btn-expand.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.expand-text {
+    font-weight: 600;
+}
+
+.expand-count {
+    opacity: 0.8;
+    font-weight: 500;
+    margin-left: var(--spacing-xs);
+}
+
+/* Responsive para secretarias */
 @media (max-width: 768px) {
     .container {
         padding: var(--spacing-md);
@@ -1637,13 +2000,77 @@ body {
     .delete-modal-actions {
         flex-direction: column;
     }
+
+    .secretaries-section {
+        padding: var(--spacing-lg);
+    }
+
+    .secretaries-header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        text-align: center;
+    }
+
+    .secretaries-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .secretary-card {
+        padding: var(--spacing-md);
+    }
+
+    .secretary-avatar-large {
+        width: 48px;
+        height: 48px;
+    }
+
+    .secretary-icon-large {
+        width: 24px;
+        height: 24px;
+    }
+
+    .secretary-username {
+        font-size: 1rem;
+    }
+
+    .secretary-role {
+        font-size: 0.8rem;
+    }
+
+    .btn-expand {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .secretaries-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .secretary-card {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+
+    .secretary-info {
+        text-align: center;
+    }
+
+    .btn-expand {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* Estados de focus para accesibilidad */
 .btn:focus,
 .form-input:focus,
 .user-menu-btn:focus,
-.theme-toggle:focus {
+.theme-toggle:focus,
+.btn-expand:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
@@ -1794,6 +2221,7 @@ svg {
 }
 
 .students-table svg,
+.secretaries-table svg,
 .table-container svg {
     max-width: 24px;
     max-height: 24px;
@@ -1821,36 +2249,29 @@ svg {
     height: 18px !important;
 }
 
-@media (max-width: 768px) {
-    .search-section {
-        padding: var(--spacing-md);
-    }
-
-    .search-form {
-        flex-direction: column;
-        gap: var(--spacing-sm);
-    }
-
-    .search-input-wrapper {
-        width: 100%;
-        min-width: auto;
-    }
-
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .table-header svg,
-    .btn svg,
-    .search-section svg {
-        width: 16px !important;
-        height: 16px !important;
-    }
-}
 [data-theme="dark"] input::placeholder,
 [data-theme="dark"] textarea::placeholder {
-    color: var(--text-secondary); /* O usa directamente #ffffff si prefieres */
-    opacity: 1; /* Por si el navegador baja la opacidad */
+    color: var(--text-secondary);
+    opacity: 1;
 }
 
+.secretaries-icon,
+.secretaries-icon-wrapper svg {
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0;
+}
+
+.secretary-icon-large,
+.secretary-avatar-large svg {
+    width: 28px !important;
+    height: 28px !important;
+    flex-shrink: 0;
+}
+
+.expand-icon,
+.btn-expand svg {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0;
+}

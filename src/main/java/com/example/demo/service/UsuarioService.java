@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -36,4 +37,18 @@ public class UsuarioService {
 
         usuarioRepository.save(nuevoUsuario);
     }
+
+    public List<Usuario> obtenerSecretarias() {
+        return usuarioRepository.findAll().stream()
+                .filter(u -> u.getRoles().stream()
+                        .anyMatch(r -> r.getNombre().equalsIgnoreCase("SECRETARIA")))
+                .toList();
+    }
+
+
+    public Usuario obtenerPorUsername(String username) {
+        return usuarioRepository.findByUsername(username).orElseThrow();
+}
+
+
 }

@@ -20,13 +20,26 @@ import java.util.List;
 public class EstudianteController {
     @Autowired
     private EstudianteService service;
+    @Autowired
+    private UsuarioService usuarioService;
+
 
     @GetMapping("/")
     public String index(Model model, Principal principal) {
         model.addAttribute("estudiantes", service.get());
         cargarDatosUsuario(model, principal);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(g -> g.getAuthority().equals("ROLE_ADMINISTRADOR"));
+
+        if (isAdmin) {
+            model.addAttribute("secretarias", usuarioService.obtenerSecretarias());
+        }
+
         return "index";
     }
+
 
     @GetMapping("/estudiantes/buscar")
     public String buscarPorCedula(String cedula, Model model, Principal principal) {
@@ -38,8 +51,17 @@ public class EstudianteController {
 
         cargarDatosUsuario(model, principal);
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(g -> g.getAuthority().equals("ROLE_ADMINISTRADOR"));
+
+        if (isAdmin) {
+            model.addAttribute("secretarias", usuarioService.obtenerSecretarias());
+        }
+
         return "index";
     }
+
 
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     @PostMapping("/estudiantes")
@@ -92,8 +114,7 @@ public class EstudianteController {
 
             model.addAttribute("isAdmin", isAdmin);
             model.addAttribute("isSecretary", isSecretary);
-        }
-    }
-
+  }
 }
 
+}
